@@ -10,6 +10,7 @@ From windows command prompt, run the following commands;
 ```
 pip3 install opencv-python
 pip3 install mss
+pip3 install win32gui
 ```
 
 ## Running
