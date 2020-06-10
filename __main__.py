@@ -73,8 +73,14 @@ def run():
             if maxLoc and maxVal > 30000000:
                 cv2.rectangle(img, (maxLoc[0]+400, maxLoc[1]+10), (maxLoc[0]+pw+400, maxLoc[1]+ph+10), (255,0,0), 5)
                 regSolution = img[80:380,135:290].copy()
+                regSolution = cv2.cvtColor(regSolution, cv2.COLOR_BGR2GRAY)
+                regSolution = cv2.inRange(regSolution, 20, 255)
+
+                cv2.imshow("p", regSolution)
                 for i in range(0,4):
                     p = cv2.imread(dir_path + "/" + str(maxPos) + "/" + str(i) + ".png")
+                    p = cv2.cvtColor(p, cv2.COLOR_BGR2GRAY)
+                    p = cv2.inRange(p, 20, 255)
                     res = cv2.matchTemplate(regSolution, p, cv2.TM_CCOEFF)
                     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
                     cv2.rectangle(img, (max_loc[0]+135, max_loc[1]+80), (max_loc[0]+135+60, max_loc[1]+80+60), (0,0,255), 2)
