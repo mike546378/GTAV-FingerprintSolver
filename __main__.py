@@ -11,14 +11,14 @@ def run():
     size = []
     pos = []
     if sys.platform == "win32":
-        import win32gui
+        from win32 import win32gui
         hwnd = win32gui.FindWindow(None, "Grand Theft Auto V")
         rect = win32gui.GetWindowRect(hwnd)
         pos = [rect[0], rect[1]]
         size = [rect[2], rect[3]]
         print(rect)
-    else:
-        print("Focus GTAV window...")
+    else: # For Linux - install xdotool           
+        print("Focus GTAV window...") 
         time.sleep(3)
         res = str(subprocess.check_output(["xdotool", "getwindowfocus", "getwindowgeometry"]))
         res = res.split("\\n")
@@ -32,6 +32,7 @@ def run():
         pos = [int(pos[0]), int(pos[1])]
         size = size.split("x")
         size = [int(size[0]), int(size[1])]
+
     with mss.mss() as sct:
         w = int(float(size[0]) * 0.8)
         h = int(float(size[1]) * 0.8)
